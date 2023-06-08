@@ -75,7 +75,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 z-50"
           >
             {user && (
               <li>
@@ -85,7 +85,7 @@ const Navbar = () => {
                 </Link>
               </li>
             )}
-            <li>{user ? <Link>Logout</Link> : <Link className="bg-base-300">Login</Link>}</li>
+            <li>{user ? <button className="btn-error">Logout</button> : <Link to={'/login'} className="bg-base-300">Login</Link>}</li>
           </ul>
         </div>
       </div>

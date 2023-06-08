@@ -11,7 +11,7 @@ const ErrorPage = () => {
         <Lottie animationData={errorAnimation} />
       </div>
       <h2 className="text-2xl text-error mb-4">
-        {error.status} {error.data}
+        {error.status} {error.statusText}! {error.data}
       </h2>
       <div className="text-center ">
         <Link to={"/"} className="btn btn-accent">
