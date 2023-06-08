@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
-import logo from '../assets/logo.png'
+import logo from "../assets/logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
   // create a navigation variable and store here all navigation menu for no repetition
-  const user = false;
+  const { user, logout } = useContext(AuthContext);
   const navigation = (
     <>
       <li>
@@ -50,8 +52,10 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex flex-col md:flex-row justify-center text-center gap-3 items-center">
-            <img className="w-10" src={logo} alt="logo" />
-            <Link className="text-2xl uppercase" to={'/'}>Summer Photography Camp</Link>
+          <img className="w-10" src={logo} alt="logo" />
+          <Link className="text-2xl uppercase" to={"/"}>
+            Summer Photography Camp
+          </Link>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -59,34 +63,56 @@ const Navbar = () => {
       </div>
       {/* TODO: added toggle to change night mode dark mode */}
       <div className="navbar-end">
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="rounded-full">
-              {user ? (
-                <div className="w-10">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              ) : (
-                <div className="text-2xl">
-                  <FaUser></FaUser>
-                </div>
+        <div className="bg-base-300 flex gap-2 items-center rounded-full">
+          {user?.displayName && (
+            <p className="uppercase pl-2 font-semibold text-accent">
+              {user?.displayName}
+            </p>
+          )}
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="rounded-full">
+                {user?.photoURL ? (
+                  <div className="w-10">
+                    <img src={user?.photoURL} />
+                  </div>
+                ) : (
+                  <div className="text-2xl">
+                    <FaUser></FaUser>
+                  </div>
+                )}
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 z-50"
+            >
+              {user && (
+                <>
+                  <li>
+                    <a>{user?.email}</a>
+                  </li>
+                  <li>
+                    <Link className="justify-between">
+                      Profile
+                      <span className="badge">New</span>
+                    </Link>
+                  </li>
+                </>
               )}
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 z-50"
-          >
-            {user && (
               <li>
-                <Link className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </Link>
+                {user ? (
+                  <button onClick={() => logout()} className="btn-error">
+                    Logout
+                  </button>
+                ) : (
+                  <Link to={"/login"} className="bg-base-300">
+                    Login
+                  </Link>
+                )}
               </li>
-            )}
-            <li>{user ? <button className="btn-error">Logout</button> : <Link to={'/login'} className="bg-base-300">Login</Link>}</li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
