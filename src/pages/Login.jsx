@@ -2,11 +2,12 @@
 import Lottie from "lottie-react";
 import loginAnimation from "../assets/login-animation.json";
 import { useForm } from "react-hook-form";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import SocialLogin from "../components/SocialLogin";
 const Login = () => {
   const {loginWithEmailPass} = useContext(AuthContext)
   const [showHidePass, setShowHidePass] = useState(false);
@@ -97,14 +98,7 @@ const Login = () => {
                 </button>
               </div>
               <div className="divider">OR LOGIN WITH</div>
-              <div className="flex gap-3 justify-center">
-                <button className="btn btn-outline text-xl btn-circle">
-                  <FaGoogle></FaGoogle>
-                </button>
-                <button className="btn btn-outline text-xl btn-circle">
-                  <FaGithub></FaGithub>
-                </button>
-              </div>
+              <SocialLogin></SocialLogin>
             </form>
           </div>
         </div>

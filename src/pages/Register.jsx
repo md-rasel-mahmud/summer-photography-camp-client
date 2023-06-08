@@ -2,11 +2,11 @@
 import Lottie from "lottie-react";
 import registerAnimation from "../assets/registation-animation.json";
 import { useForm } from "react-hook-form";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import SocialLogin from "../components/SocialLogin";
 const Register = () => {
   const { registerWithEmailPass,updateUserInfo } = useContext(AuthContext);
   const [errors, setErrors] = useState("");
@@ -158,14 +158,7 @@ const Register = () => {
                 </button>
               </div>
               <div className="divider">OR REGISTER WITH</div>
-              <div className="flex gap-3 justify-center">
-                <button className="btn btn-outline text-xl btn-circle">
-                  <FaGoogle></FaGoogle>
-                </button>
-                <button className="btn btn-outline text-xl btn-circle">
-                  <FaGithub></FaGithub>
-                </button>
-              </div>
+              <SocialLogin></SocialLogin>
             </form>
           </div>
         </div>

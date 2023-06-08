@@ -63,54 +63,56 @@ const Navbar = () => {
       </div>
       {/* TODO: added toggle to change night mode dark mode */}
       <div className="navbar-end">
-        <div className="bg-base-300 flex gap-2 items-center rounded-full">
+        <div className="bg-base-300 flex gap-1 items-center rounded-full">
           {user?.displayName && (
-            <p className="uppercase pl-2 font-semibold text-accent">
-              {user?.displayName}
+            <p className="hidden lg:block uppercase pl-4 font-semibold text-accent">
+              {user?.displayName.split(" ")[0]}{" "}
+              {user?.displayName.split(" ")[1]}
             </p>
           )}
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="rounded-full">
-                {user?.photoURL ? (
-                  <div className="w-10">
-                    <img src={user?.photoURL} />
-                  </div>
-                ) : (
-                  <div className="text-2xl">
-                    <FaUser></FaUser>
-                  </div>
-                )}
-              </div>
-            </label>
+            {user ? (
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="rounded-full">
+                  {user?.photoURL ? (
+                    <div className="w-10">
+                      <img src={user?.photoURL} />
+                    </div>
+                  ) : (
+                    <div className="text-2xl">
+                      <FaUser></FaUser>
+                    </div>
+                  )}
+                </div>
+              </label>
+            ) : (
+              <Link to={"/login"} className="btn btn-sm btn-primary">
+                Login
+              </Link>
+            )}
             <ul
               tabIndex={0}
-              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 z-50"
+              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-60 z-50"
             >
               {user && (
                 <>
                   <li>
-                    <a>{user?.email}</a>
+                    <a className="break-all">
+                      <b>Full Name:</b> {user?.displayName}
+                    </a>
                   </li>
                   <li>
-                    <Link className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </Link>
+                    <a className="break-all">
+                      <b>Email:</b> {user?.email}
+                    </a>
+                  </li>
+                  <li>
+                    <button onClick={() => logout()} className="btn-error">
+                      Logout
+                    </button>
                   </li>
                 </>
               )}
-              <li>
-                {user ? (
-                  <button onClick={() => logout()} className="btn-error">
-                    Logout
-                  </button>
-                ) : (
-                  <Link to={"/login"} className="bg-base-300">
-                    Login
-                  </Link>
-                )}
-              </li>
             </ul>
           </div>
         </div>
