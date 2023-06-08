@@ -21,7 +21,7 @@ const Banner = () => {
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 3000,
+          delay: 6000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -32,8 +32,8 @@ const Banner = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <div className="flex justify-around items-center min-h-[85vh]">
-            <div className="w-1/3">
+          <div className="flex flex-col-reverse lg:flex-row justify-around items-center min-h-[85vh]">
+            <div className="w-full lg:w-1/3 text-center p-3 lg:text-left">
               <h1 className="text-4xl font-bold text-accent mb-3">
                 Capture the Beauty of Summer: Join Our Photography Camp!
               </h1>
@@ -45,14 +45,14 @@ const Banner = () => {
                 unforgettable summer adventure!
               </p>
             </div>
-            <div className="w-1/3">
+            <div className="lg:w-1/3">
               <Lottie animationData={photographySlider1}></Lottie>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="flex justify-around items-center min-h-[80vh]">
-            <div className="w-1/3">
+          <div className="flex flex-col-reverse lg:flex-row justify-around items-center min-h-[85vh]">
+            <div className="w-full lg:w-1/3 text-center p-3 lg:text-left">
               <h1 className="text-4xl font-bold text-accent mb-3">
                 Capture the Beauty of Summer: Join Our Photography Camp!
               </h1>
@@ -64,14 +64,14 @@ const Banner = () => {
                 unforgettable summer adventure!
               </p>
             </div>
-            <div className="w-1/3">
+            <div className="lg:w-1/3">
               <Lottie animationData={photographySlider2}></Lottie>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="flex justify-around items-center min-h-[80vh]">
-            <div className="w-1/3">
+          <div className="flex flex-col-reverse lg:flex-row justify-around items-center min-h-[85vh]">
+            <div className="w-full lg:w-1/3 text-center p-3 lg:text-left">
               <h1 className="text-4xl font-bold text-accent mb-3">
                 Immerse Yourself in the Colors of Summer: Enroll in Our
                 Photography Camp Now!
@@ -85,7 +85,7 @@ const Banner = () => {
                 develop your photography skills like never before!
               </p>
             </div>
-            <div className="w-1/3">
+            <div className="lg:w-1/3">
               <Lottie animationData={photographySlider3}></Lottie>
             </div>
           </div>
