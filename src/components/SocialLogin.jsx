@@ -7,14 +7,13 @@ const SocialLogin = () => {
   const { loginWithGooglePopup } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
-    <div className="flex gap-3 justify-center">
-      <button
-        onClick={() => loginWithGooglePopup().then(() => navigate("/"))}
-        className="btn btn-outline text-xl btn-circle"
-      >
-        <FaGoogle></FaGoogle>
-      </button>
-    </div>
+    <button
+      onClick={() => loginWithGooglePopup().then(() => navigate("/"))}
+      className="btn btn-outline text-xl"
+      type="button"
+    >
+      <FaGoogle></FaGoogle> Google
+    </button>
   );
 };
 
