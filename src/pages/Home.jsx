@@ -1,12 +1,12 @@
 import Banner from "../components/Home/Banner";
+import PopularClasses from "../components/Home/PopularClasses";
 
 const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      <div className="max-w-screen-xl mx-auto">
-        
-      </div>
+
+      <PopularClasses></PopularClasses>
     </div>
   );
 };
