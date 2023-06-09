@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import ClassCard from "../ClassCard";
-import Heading from "../Heading";
 
-const PopularClasses = () => {
-  const [popularClass, setPopularClass] = useState([]);
+import Heading from "../Heading";
+import InstructorCard from "../InstructorCard";
+
+const PopularInstructors = () => {
+  const [popularInstructors, setPopularInstructors] = useState([]);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_api_link}/classes`)
       .then((res) => res.json())
@@ -12,20 +13,20 @@ const PopularClasses = () => {
           (a, b) => b.availableSeats - a.availableSeats
         );
         console.log(sortClass);
-        setPopularClass(sortClass);
+        setPopularInstructors(sortClass);
       });
   }, []);
-  console.log(popularClass);
+  console.log(popularInstructors);
   return (
     <>
       <div className="divider"></div>
-      <Heading heading={"popular classes"}></Heading>
+      <Heading heading={"Popular Instructors"}></Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-screen-xl mx-auto my-8">
-        <ClassCard classesCard={popularClass.slice(0, 6)}></ClassCard>
+        <InstructorCard instructorsCard={popularInstructors.slice(0, 6)}></InstructorCard>
       </div>
       <div className="divider"></div>
     </>
   );
 };
 
-export default PopularClasses;
+export default PopularInstructors;
