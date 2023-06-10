@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Heading from "../Heading";
-import InstructorCard from "../InstructorCard";
+import InstructorCard from "../Instructor/InstructorCard";
 
 const PopularInstructors = () => {
   const [popularInstructors, setPopularInstructors] = useState([]);

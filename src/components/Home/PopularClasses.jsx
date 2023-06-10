@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ClassCard from "../ClassCard";
 import Heading from "../Heading";
+import ClassCard from "../Class/ClassCard";
 
 const PopularClasses = () => {
   const [popularClass, setPopularClass] = useState([]);

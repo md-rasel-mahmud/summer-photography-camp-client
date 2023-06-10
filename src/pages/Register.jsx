@@ -8,16 +8,16 @@ import { AuthContext } from "../providers/AuthProvider";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import SocialLogin from "../components/SocialLogin";
 const Register = () => {
-  const { registerWithEmailPass,updateUserInfo } = useContext(AuthContext);
+  const { registerWithEmailPass, updateUserInfo } = useContext(AuthContext);
   const [errors, setErrors] = useState("");
   const [showHidePass, setShowHidePass] = useState(false);
 
   const { register, handleSubmit } = useForm();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    const { name,photoUrl,email, password, confirmPass } = data;
+    const { name, photoUrl, email, password, confirmPass } = data;
 
     setErrors("");
     if (password.length < 6 && confirmPass.length < 6) {
@@ -44,9 +44,18 @@ const Register = () => {
     console.log(data);
     registerWithEmailPass(email, password).then((result) => {
       const user = result.user;
-      updateUserInfo(name,photoUrl)
+      // fetch data to server post method send data user email password and user name and password is encrypted and send data to server to register user.
+      fetch(`${import.meta.env.VITE_api_link}/user`, {
+        method: "POST", // or 'PUT' if creating a new user.
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user?.email }), // data to send to server.
+      })
+        .then((res) => res.json()) // parse json data.
+        .then((data) => console.log(data)) 
+        .catch((err) => console.log(err)); 
+      updateUserInfo(name, photoUrl);
       console.log(user);
-      navigate('/')
+      navigate("/");
     });
   };
 
