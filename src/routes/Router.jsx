@@ -36,15 +36,19 @@ const router = createBrowserRouter([
         path: "/instructors",
         element: <Instructors></Instructors>,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateLayout>
+        <Dashboard></Dashboard>
+      </PrivateLayout>
+    ),
+    children: [
       {
-        path: "/dashboard",
-        element: <PrivateLayout><Dashboard></Dashboard></PrivateLayout>,
-        children: [
-          {
-            path: '/dashboard/my-classes',
-            element: <MyClasses></MyClasses>
-          }
-        ]
+        path: "/dashboard/my-classes",
+        element: <MyClasses></MyClasses>,
       },
     ],
   },

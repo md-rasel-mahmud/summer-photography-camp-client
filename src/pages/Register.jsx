@@ -46,13 +46,12 @@ const Register = () => {
       const user = result.user;
       // fetch data to server post method send data user email password and user name and password is encrypted and send data to server to register user.
       fetch(`${import.meta.env.VITE_api_link}/user`, {
-        method: "POST", // or 'PUT' if creating a new user.
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user?.email }), // data to send to server.
+        body: JSON.stringify({ email: user?.email, name }), //pass your email here (optional)
       })
-        .then((res) => res.json()) // parse json data.
-        .then((data) => console.log(data)) 
-        .catch((err) => console.log(err)); 
+        .then((res) => res.json()) //convert res.body to json and store it in user (optional)
+        .then((data) => console.log(data)); //log user data (optional)
       updateUserInfo(name, photoUrl);
       console.log(user);
       navigate("/");

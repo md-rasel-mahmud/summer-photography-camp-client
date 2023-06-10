@@ -58,7 +58,7 @@ const Navbar = () => {
           </div>
           <div className="flex flex-col md:flex-row justify-center text-center gap-3 items-center">
             <img className="w-10" src={logo} alt="logo" />
-            <Link className="text-2xl uppercase" to={"/"}>
+            <Link className="text-xl text-accent uppercase" to={"/"}>
               Summer Photography Camp
             </Link>
           </div>
@@ -104,7 +104,7 @@ const Navbar = () => {
                 >
                   <div className="card-body">
                     <span className="font-bold text-lg">
-                      My Classws: {selectedClass.length}
+                      My Classes: {selectedClass.length}
                     </span>
                     <span className="text-info">
                       Subtotal: $

@@ -34,7 +34,7 @@ const Banner = () => {
         <SwiperSlide>
           <div className="flex flex-col-reverse lg:flex-row justify-around items-center min-h-[85vh]">
             <div className="w-full lg:w-1/3 text-center p-3 lg:text-left">
-              <h1 className="text-4xl font-bold text-accent mb-3">
+              <h1 className="text-4xl font-bold text-primary mb-3">
                 Capture the Beauty of Summer: Join Our Photography Camp!
               </h1>
               <p>
@@ -53,7 +53,7 @@ const Banner = () => {
         <SwiperSlide>
           <div className="flex flex-col-reverse lg:flex-row justify-around items-center min-h-[85vh]">
             <div className="w-full lg:w-1/3 text-center p-3 lg:text-left">
-              <h1 className="text-4xl font-bold text-accent mb-3">
+              <h1 className="text-4xl font-bold text-primary mb-3">
                 Capture the Beauty of Summer: Join Our Photography Camp!
               </h1>
               <p>
@@ -72,7 +72,7 @@ const Banner = () => {
         <SwiperSlide>
           <div className="flex flex-col-reverse lg:flex-row justify-around items-center min-h-[85vh]">
             <div className="w-full lg:w-1/3 text-center p-3 lg:text-left">
-              <h1 className="text-4xl font-bold text-accent mb-3">
+              <h1 className="text-4xl font-bold text-primary mb-3">
                 Immerse Yourself in the Colors of Summer: Enroll in Our
                 Photography Camp Now!
               </h1>

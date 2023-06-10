@@ -12,7 +12,7 @@ const useSelectedClass = () => {
       const res = await fetch(
         `${import.meta.env.VITE_api_link}/selected-classes?email=${user?.email}`
       );
-      const data = await res.json();
+      const data = await res.json();  
       return data;
     },
   });
