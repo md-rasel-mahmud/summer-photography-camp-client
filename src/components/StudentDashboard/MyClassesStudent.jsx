@@ -4,7 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useUserData from "../../hooks/useUserData";
 
-const MyClasses = () => {
+const MyClassesStudent = () => {
   const [selectedClass, refetch] = useSelectedClass();
   const [userData] = useUserData();
   console.log(selectedClass);
@@ -107,11 +107,19 @@ const MyClasses = () => {
             </div>
           )}
         </>
-      ) : (
-        <Navigate to="/dashboard/all-users" replace={true}></Navigate>
-      )}
+      ) : 
+        userData.role === "admin" ? 
+          <Navigate to="/dashboard/admin/manage-users" replace={true}></Navigate>
+         :
+
+          <Navigate
+            to="/dashboard/instructor/my-classes"
+            replace={true}
+          ></Navigate>
+        
+      }
     </>
   );
 };
 
-export default MyClasses;
+export default MyClassesStudent;

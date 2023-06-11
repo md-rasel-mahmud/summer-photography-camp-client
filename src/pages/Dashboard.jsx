@@ -3,7 +3,7 @@ import { TiThMenu } from "react-icons/ti";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
-import { FaChalkboardTeacher, FaHome, FaUsers } from "react-icons/fa";
+import { FaChalkboardTeacher, FaHome, FaUserMd, FaUsers } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import useSelectedClass from "../hooks/useSelectedClass";
 import useUserData from "../hooks/useUserData";
@@ -11,9 +11,6 @@ const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
   const [selectedClass] = useSelectedClass();
   const [userData] = useUserData();
-
-  console.log(userData);
-
   return (
     <>
       <Heading
@@ -60,7 +57,7 @@ const Dashboard = () => {
               <>
                 <li>
                   <Link
-                    to={"/dashboard/my-classes"}
+                    to={"/dashboard/student/my-classes"}
                     className="btn block btn-sm !text-left"
                   >
                     My Selected Classes
@@ -68,7 +65,7 @@ const Dashboard = () => {
                 </li>
                 <li>
                   <Link
-                    to={"/dashboard/my-classes"}
+                    to={"/dashboard/student/my-enrolled-classes"}
                     className="btn block btn-sm !text-left"
                   >
                     My Enrolled Classes
@@ -79,15 +76,30 @@ const Dashboard = () => {
             {userData.role === "admin" && (
               <>
                 <li>
-                  <Link to={"/dashboard/manage-classes"} className="btn btn-sm">
-                    <FaChalkboardTeacher></FaChalkboardTeacher>
+                  <Link to={"/dashboard/admin/manage-classes"} className="btn btn-sm">
+                    <FaUserMd></FaUserMd>
                     Manage classes
                   </Link>
                 </li>
                 <li>
-                  <Link to={"/dashboard/all-users"} className="btn btn-sm">
+                  <Link to={"/dashboard/admin/manage-users"} className="btn btn-sm">
                     <FaUsers></FaUsers>
                     Manage Users
+                  </Link>
+                </li>
+              </>
+            )}
+            {userData.role === "instructor" && (
+              <>
+                <li>
+                  <Link to={"/dashboard/instructor/my-classes"} className="btn btn-sm">
+                    <FaChalkboardTeacher></FaChalkboardTeacher> My classes
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/dashboard/instructor/add-class"} className="btn btn-sm">
+                    <FaUsers></FaUsers>
+                    Add A Class
                   </Link>
                 </li>
               </>

@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import useSelectedClass from "../../hooks/useSelectedClass";
 import useUserData from "../../hooks/useUserData";
 
 /* eslint-disable react/prop-types */
 const ClassCard = ({ classesCard }) => {
   const { user } = useContext(AuthContext);
-  const [, refetch] = useSelectedClass()
-  const [userData] = useUserData()
+  const [, refetch] = useSelectedClass();
+  const [userData] = useUserData();
 
   const handleSelectedClass = (card) => {
     // fetch data from server: method post and the card data will be send
@@ -29,7 +29,7 @@ const ClassCard = ({ classesCard }) => {
         .then((data) => {
           console.log(data);
           if (data.insertedId) {
-            refetch()
+            refetch();
             Swal.fire({
               position: "center",
               icon: "success",
@@ -77,7 +77,13 @@ const ClassCard = ({ classesCard }) => {
               <button
                 onClick={() => handleSelectedClass(card)}
                 className="btn btn-accent btn-block btn-sm"
-                disabled={userData.role === 'admin' || 'instructor' && card.availableSeats === 0 ? true : false}
+                disabled={
+                  userData.role === "admin" ||
+                  userData.role === "instructor" ||
+                  card.availableSeats === 0
+                    ? true
+                    : false
+                }
               >
                 Select
               </button>

@@ -67,6 +67,11 @@ const ManageClasses = () => {
     console.log(feedback);
     Swal.fire({
       title: "Submit your Feedback",
+      text: `${
+        feedback.feedbackMsg
+          ? `Your Previous Feedback:- ${feedback.feedbackMsg.slice(0, 300)}`
+          : ""
+      }`,
       input: "text",
       inputAttributes: {
         autocapitalize: "off",
@@ -98,7 +103,9 @@ const ManageClasses = () => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Send Feedback to",
-          text: (`INSTRUCTOR: ${feedback.instructorName.toUpperCase()} for Class: ${feedback.name}`),
+          text: `INSTRUCTOR: ${feedback.instructorName.toUpperCase()} for Class: ${
+            feedback.name
+          }`,
           imageUrl: feedback.instructorImg,
         });
         refetch();
@@ -182,12 +189,17 @@ const ManageClasses = () => {
                   >
                     Deny
                   </button>
-                  <button
-                    onClick={() => handleFeedback(allClass)}
-                    className="btn btn-accent btn-xs"
-                  >
-                    feedback
-                  </button>
+                  <div className="indicator">
+                    {allClass.feedbackMsg && (
+                      <span className="indicator-item badge badge-xs badge-secondary"></span>
+                    )}
+                    <button
+                      onClick={() => handleFeedback(allClass)}
+                      className="btn btn-accent btn-xs"
+                    >
+                      feedback
+                    </button>
+                  </div>
                 </div>
               </td>
             </tr>

@@ -21,7 +21,7 @@ const Navbar = () => {
         <Link to={"/classes"}>Classes</Link>
       </li>
       <li>
-        <Link to={"/dashboard/my-classes"}>Dashboard</Link>
+        <Link to={"/dashboard/student/my-classes"}>Dashboard</Link>
       </li>
     </>
   );
@@ -114,7 +114,7 @@ const Navbar = () => {
                       }, 0)}
                     </span>
                     <div className="card-actions">
-                      <Link to={'/dashboard/my-classes'} className="btn btn-primary btn-block">
+                      <Link to={'/dashboard/student/my-classes'} className="btn btn-primary btn-block">
                         View My Classes
                       </Link>
                     </div>

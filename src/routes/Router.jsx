@@ -8,9 +8,11 @@ import Classes from "../pages/Classes";
 import Instructors from "../pages/Instructors";
 import Dashboard from "../pages/Dashboard";
 import PrivateLayout from "../layouts/PrivateLayout";
-import MyClasses from "../components/StudentDashboard/MyClasses";
+import MyClassesStudent from "../components/StudentDashboard/MyClassesStudent";
 import ManageClasses from "../components/AdminDashboard/ManageClasses";
 import ManageUsers from "../components/AdminDashboard/ManageUsers";
+import MyClassesInstructor from "../components/InstructorDashbord/MyClassesInstructor";
+import AddAClass from "../components/InstructorDashbord/AddAClass";
 
 const router = createBrowserRouter([
   {
@@ -49,16 +51,24 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard/my-classes",
-        element: <MyClasses></MyClasses>,
+        path: "/dashboard/student/my-classes",
+        element: <MyClassesStudent></MyClassesStudent>,
       },
       {
-        path: "/dashboard/all-users",
+        path: "/dashboard/admin/manage-users",
         element: <ManageUsers></ManageUsers>,
       },
       {
-        path: "/dashboard/manage-classes",
+        path: "/dashboard/admin/manage-classes",
         element: <ManageClasses></ManageClasses>,
+      },
+      {
+        path: "/dashboard/instructor/my-classes",
+        element: <MyClassesInstructor></MyClassesInstructor>,
+      },
+      {
+        path: "/dashboard/instructor/add-class",
+        element: <AddAClass></AddAClass>,
       },
     ],
   },
