@@ -7,7 +7,7 @@ const useAllClasses = () => {
 
   const { refetch, data: allClasses = [] } = useQuery({
     enabled: !loading ,
-    queryKey: ["user"],
+    queryKey: ["classes"],
     queryFn: async () => {
       const res = await fetch(
         `${import.meta.env.VITE_api_link}/classes`

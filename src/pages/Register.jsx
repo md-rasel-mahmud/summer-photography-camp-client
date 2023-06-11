@@ -41,7 +41,6 @@ const Register = () => {
       return;
     }
     setErrors("");
-    console.log(data);
     registerWithEmailPass(email, password).then((result) => {
       const user = result.user;
       // fetch data to server post method send data user email password and user name and password is encrypted and send data to server to register user.

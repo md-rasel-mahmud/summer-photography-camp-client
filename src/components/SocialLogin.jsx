@@ -10,7 +10,6 @@ const SocialLogin = () => {
   const handleSocialLogin = () => {
     loginWithGooglePopup().then((result) => {
       //fetch data: send user email to server via post method
-
       const user = result.user;
       fetch(`${import.meta.env.VITE_api_link}/user`, {
         method: "POST",

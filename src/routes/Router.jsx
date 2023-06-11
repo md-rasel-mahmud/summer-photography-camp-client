@@ -9,8 +9,8 @@ import Instructors from "../pages/Instructors";
 import Dashboard from "../pages/Dashboard";
 import PrivateLayout from "../layouts/PrivateLayout";
 import MyClasses from "../components/StudentDashboard/MyClasses";
-import AllUsers from "../components/StudentDashboard/AllUsers";
-import ManageClasses from "../components/StudentDashboard/ManageClasses";
+import ManageClasses from "../components/AdminDashboard/ManageClasses";
+import ManageUsers from "../components/AdminDashboard/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -54,10 +54,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all-users",
-        element: <AllUsers></AllUsers>,
+        element: <ManageUsers></ManageUsers>,
       },
       {
-        path: "/dashboard/all-users",
+        path: "/dashboard/manage-classes",
         element: <ManageClasses></ManageClasses>,
       },
     ],

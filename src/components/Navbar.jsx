@@ -124,7 +124,7 @@ const Navbar = () => {
             )}
             <div className="dropdown dropdown-end">
               {user ? (
-                <label tabIndex={1} className="btn btn-ghost btn-circle avatar">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div className="rounded-full">
                     {user?.photoURL ? (
                       <div className="w-10">
@@ -137,13 +137,14 @@ const Navbar = () => {
                     )}
                   </div>
                 </label>
+                // TODO: whenever click login button it will show blank list box need to fix when main requirement would done
               ) : (
                 <Link to={"/login"} className="btn btn-sm btn-primary">
                   Login
                 </Link>
               )}
               <ul
-                tabIndex={1}
+                tabIndex={0}
                 className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-60 z-50"
               >
                 {user && (

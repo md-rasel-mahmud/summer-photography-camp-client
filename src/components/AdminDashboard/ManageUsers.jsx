@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import useUserData from "../../hooks/useUserData";
 import useAllUserData from "../../hooks/useAllUserData";
 
-const AllUsers = () => {
+const ManageUsers = () => {
   const [userData] = useUserData();
   const [allUserData, refetch] = useAllUserData();
   console.log(allUserData);
@@ -32,7 +32,7 @@ const AllUsers = () => {
         })
           .then((res) => res.json())
           .then(() => {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            Swal.fire("Welcome!",`${instructor.name = instructor.name.toUpperCase()} is Instructor now`, "success");
             refetch();
           });
       }
@@ -57,7 +57,7 @@ const AllUsers = () => {
         })
           .then((res) => res.json())
           .then(() => {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            Swal.fire("Welcome!",`"${admin.name = admin.name.toUpperCase()}" is Admin now`, "success");
             refetch();
           });
       }
@@ -156,4 +156,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default ManageUsers;

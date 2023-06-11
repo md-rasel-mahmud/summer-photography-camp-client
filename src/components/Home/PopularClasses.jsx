@@ -21,7 +21,7 @@ const PopularClasses = () => {
       <div className="divider"></div>
       <Heading heading={"popular classes"}></Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-screen-xl mx-auto my-8">
-        <ClassCard classesCard={popularClass.slice(0, 6)}></ClassCard>
+        <ClassCard classesCard={popularClass.filter(approved => approved.status === 'approved').slice(0, 6)}></ClassCard>
       </div>
       <div className="divider"></div>
     </>

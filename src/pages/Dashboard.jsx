@@ -39,7 +39,7 @@ const Dashboard = () => {
         </div>
         <div className="drawer-side items-end z-50 lg:z-20">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-2/3 gap-1 lg:w-80 h-screen bg-base-300 text-base-content">
+          <ul className="menu p-4 w-2/3 gap-1 lg:w-80 h-full sticky bg-base-300 text-base-content">
             {/* Sidebar content here */}
             <li>
               <div className="flex flex-col bg-base-100 py-5 justify-center">
@@ -79,7 +79,7 @@ const Dashboard = () => {
             {userData.role === "admin" && (
               <>
                 <li>
-                  <Link to={"/dashboard/manage-class"} className="btn btn-sm">
+                  <Link to={"/dashboard/manage-classes"} className="btn btn-sm">
                     <FaChalkboardTeacher></FaChalkboardTeacher>
                     Manage classes
                   </Link>

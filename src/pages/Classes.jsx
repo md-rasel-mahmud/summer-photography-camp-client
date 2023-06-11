@@ -9,7 +9,7 @@ const Classes = () => {
     <>
       <Heading heading={"classes"}></Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-screen-xl mx-auto my-8">
-        <ClassCard classesCard={allClasses}></ClassCard>
+        <ClassCard classesCard={allClasses.filter(approved => approved.status === 'approved')}></ClassCard>
       </div>
     </>
   );

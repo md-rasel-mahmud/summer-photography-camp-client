@@ -3,11 +3,13 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from 'sweetalert2'
 import useSelectedClass from "../../hooks/useSelectedClass";
+import useUserData from "../../hooks/useUserData";
 
 /* eslint-disable react/prop-types */
 const ClassCard = ({ classesCard }) => {
   const { user } = useContext(AuthContext);
   const [, refetch] = useSelectedClass()
+  const [userData] = useUserData()
 
   const handleSelectedClass = (card) => {
     // fetch data from server: method post and the card data will be send
@@ -74,9 +76,8 @@ const ClassCard = ({ classesCard }) => {
             <div className="card-actions">
               <button
                 onClick={() => handleSelectedClass(card)}
-                className={`btn btn-accent btn-block btn-sm ${
-                  card.availableSeats === 0 ? "btn-disabled opacity-50" : ""
-                }`}
+                className="btn btn-accent btn-block btn-sm"
+                disabled={userData.role === 'admin' || 'instructor' && card.availableSeats === 0 ? true : false}
               >
                 Select
               </button>

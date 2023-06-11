@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import SocialLogin from "../components/SocialLogin";
 const Login = () => {
-  const {loginWithEmailPass} = useContext(AuthContext)
+  const { loginWithEmailPass } = useContext(AuthContext);
   const [showHidePass, setShowHidePass] = useState(false);
 
   const {
@@ -18,20 +18,27 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate()
-  // handle submit form 
+  const navigate = useNavigate();
+  // handle submit form
   const onSubmit = (data) => {
-    console.log(data)
+    const { email, password } = data;
 
-    const {email, password} = data;
-
-    loginWithEmailPass(email, password)
-    .then((result) => {
+    loginWithEmailPass(email, password).then((result) => {
       const user = result.user;
-      navigate('/')
+      fetch(`${import.meta.env.VITE_api_link}/user`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user?.email,
+          name: user?.displayName,
+          photoUrl: user?.photoURL,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+      navigate("/");
       console.log(user);
-    })
-    
+    });
   };
 
   return (
