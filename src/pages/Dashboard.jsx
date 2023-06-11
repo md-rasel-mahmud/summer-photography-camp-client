@@ -3,15 +3,28 @@ import { TiThMenu } from "react-icons/ti";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
-import { FaHome } from "react-icons/fa";
+import { FaChalkboardTeacher, FaHome, FaUsers } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import useSelectedClass from "../hooks/useSelectedClass";
+import useUserData from "../hooks/useUserData";
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [selectedClass] = useSelectedClass();
+  const [userData] = useUserData();
+
+  console.log(userData);
+
   return (
     <div>
-      <Heading heading={"student dashboard"}></Heading>
+      <Heading
+        heading={
+          userData?.role === "admin"
+            ? "admin dashboard"
+            : userData?.role === "instructor"
+            ? "instructor dashboard"
+            : "student dashboard"
+        }
+      ></Heading>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
@@ -41,22 +54,52 @@ const Dashboard = () => {
               </div>
             </li>
             <div className="divider"></div>
-            <li>
-              <Link
-                to={"/dashboard/my-classes"}
-                className="btn block btn-sm !text-left"
-              >
-                My Selected Classes
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/dashboard/my-classes"}
-                className="btn block btn-sm !text-left"
-              >
-                My Enrolled Classes
-              </Link>
-            </li>
+
+            {/* ======================================================================= */}
+            {!userData.role && (
+              <>
+                <li>
+                  <Link
+                    to={"/dashboard/my-classes"}
+                    className="btn block btn-sm !text-left"
+                  >
+                    My Selected Classes
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/dashboard/my-classes"}
+                    className="btn block btn-sm !text-left"
+                  >
+                    My Enrolled Classes
+                  </Link>
+                </li>
+              </>
+            )}
+            {userData.role === "admin" && (
+              <>
+                <li>
+                  <Link
+                    to={"/dashboard/all-users"}
+                    className="btn btn-sm"
+                  >
+                    <FaChalkboardTeacher></FaChalkboardTeacher>
+                    instructors
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/dashboard/all-users"}
+                    className="btn btn-sm"
+                    >
+                    <FaUsers></FaUsers>
+                    Manage Users
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* ======================================================================= */}
             <div className="divider"></div>
             <li>
               <Link to={"/"} className="btn btn-sm">

@@ -9,6 +9,7 @@ import Instructors from "../pages/Instructors";
 import Dashboard from "../pages/Dashboard";
 import PrivateLayout from "../layouts/PrivateLayout";
 import MyClasses from "../components/StudentDashboard/MyClasses";
+import AllUsers from "../components/StudentDashboard/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-classes",
         element: <MyClasses></MyClasses>,
+      },
+      {
+        path: "/dashboard/all-users",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },

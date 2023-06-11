@@ -48,10 +48,10 @@ const Register = () => {
       fetch(`${import.meta.env.VITE_api_link}/user`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user?.email, name }), //pass your email here (optional)
+        body: JSON.stringify({ email: user?.email, name , photoUrl}), 
       })
-        .then((res) => res.json()) //convert res.body to json and store it in user (optional)
-        .then((data) => console.log(data)); //log user data (optional)
+        .then((res) => res.json()) 
+        .then((data) => console.log(data));
       updateUserInfo(name, photoUrl);
       console.log(user);
       navigate("/");

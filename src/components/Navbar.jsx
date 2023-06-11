@@ -21,7 +21,7 @@ const Navbar = () => {
         <Link to={"/classes"}>Classes</Link>
       </li>
       <li>
-        <Link to={"/dashboard"}>Dashboard</Link>
+        <Link to={"/dashboard/my-classes"}>Dashboard</Link>
       </li>
     </>
   );
@@ -153,11 +153,11 @@ const Navbar = () => {
                         <b>Full Name:</b> {user?.displayName}
                       </a>
                     </li>
-                    <li>
-                      <a className="break-all">
+                    
+                      <a className="break-all px-3">
                         <b>Email:</b> {user?.email}
                       </a>
-                    </li>
+                    
                     <li>
                       <button onClick={() => logout()} className="btn-error">
                         Logout

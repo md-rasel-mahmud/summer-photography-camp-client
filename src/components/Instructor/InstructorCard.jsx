@@ -13,7 +13,7 @@ const InstructorCard = ({ instructorsCard }) => {
         >
           <figure className="p-5 shadow-lg">
             <img
-              className="rounded-lg w-full lg:h-44"
+              className="rounded-lg w-full lg:h-40"
               src={card.instructorImg}
               alt={card.name}
             />
@@ -23,20 +23,17 @@ const InstructorCard = ({ instructorsCard }) => {
               card.availableSeats === 0 ? "bg-red-500/70" : "bg-base-200"
             } w-full rounded-lg`}
           >
-            <h2 className="card-title text-primary">
-               {card.instructorName}
+            <h2 className="card-title ">
+              Instructor Name:{" "}
+              <span className="text-primary">{card.instructorName}</span>
             </h2>
-            <p className="flex items-center gap-1"><FaChalkboardTeacher></FaChalkboardTeacher><b>Class:</b> {card.name}</p>
             <p className="flex items-center gap-1">
-              <FaEnvelope></FaEnvelope> {card.instructorEmail}
+              <FaChalkboardTeacher></FaChalkboardTeacher> 
+              <b>Class:</b> {card.name}
             </p>
-            <div className="card-actions">
-              <button
-                className="btn btn-accent btn-block btn-sm"
-              >
-                View details
-              </button>
-            </div>
+            <p className="flex items-center gap-1">
+              <FaEnvelope></FaEnvelope>  { card.instructorEmail}
+            </p>
           </div>
         </div>
       ))}
