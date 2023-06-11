@@ -72,7 +72,7 @@ const Dashboard = () => {
                     className="btn block btn-sm !text-left"
                   >
                     My Enrolled Classes
-                  </Link>
+                  </Link>   
                 </li>
               </>
             )}
@@ -80,11 +80,11 @@ const Dashboard = () => {
               <>
                 <li>
                   <Link
-                    to={"/dashboard/all-users"}
+                    to={"/dashboard/manage-class"}
                     className="btn btn-sm"
                   >
                     <FaChalkboardTeacher></FaChalkboardTeacher>
-                    instructors
+                    Manage classes
                   </Link>
                 </li>
                 <li>
