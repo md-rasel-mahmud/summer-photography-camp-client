@@ -1,11 +1,16 @@
-import { FaChalkboardTeacher, FaEnvelope, FaUser, FaUserShield } from "react-icons/fa";
+import {
+  FaChalkboardTeacher,
+  FaEnvelope,
+  FaUser,
+  FaUserShield,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useUserData from "../../hooks/useUserData";
 import useAllUserData from "../../hooks/useAllUserData";
 
 const AllUsers = () => {
-  const [userData,] = useUserData();
+  const [userData] = useUserData();
   const [allUserData, refetch] = useAllUserData();
   console.log(allUserData);
 
@@ -23,7 +28,7 @@ const AllUsers = () => {
         fetch(`${import.meta.env.VITE_api_link}/user?id=${instructor._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ role: "instructor" })
+          body: JSON.stringify({ role: "instructor" }),
         })
           .then((res) => res.json())
           .then(() => {
@@ -48,7 +53,7 @@ const AllUsers = () => {
         fetch(`${import.meta.env.VITE_api_link}/user?id=${admin._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ role: "admin" })
+          body: JSON.stringify({ role: "admin" }),
         })
           .then((res) => res.json())
           .then(() => {
@@ -57,7 +62,7 @@ const AllUsers = () => {
           });
       }
     });
-  }
+  };
   return (
     <>
       {userData.role === "admin" && allUserData.length > 0 ? (
@@ -98,20 +103,34 @@ const AllUsers = () => {
                       <FaEnvelope></FaEnvelope> {user.email}
                     </div>
                   </td>
-                  <td>{user.role ? <div className="flex btn btn-xs pointer-events-none btn-secondary items-center gap-1 uppercase"><FaUserShield></FaUserShield>{user.role}</div>  : <div className="flex items-center gap-1 uppercase"><FaUser></FaUser> student</div>}</td>
                   <td>
-                    <div className="flex items-center gap-2 bg-base-300 p-2 rounded-lg">
+                    {user.role ? (
+                      <div className="flex w-max btn btn-xs pointer-events-none btn-secondary items-center gap-1 uppercase">
+                        <FaUserShield></FaUserShield>
+                        {user.role}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1 uppercase">
+                        <FaUser></FaUser> student
+                      </div>
+                    )}
+                  </td>
+                  <td>
+                    <div className="flex items-center w-max gap-2 bg-base-300 p-2 rounded-lg">
                       <button
                         onClick={() => handleMakeInstructor(user)}
                         className="btn btn-accent btn-sm"
-                        disabled={user.role === "instructor" || user.role === "admin" && true}
+                        disabled={
+                          user.role === "instructor" ||
+                          (user.role === "admin" && true)
+                        }
                       >
                         <FaChalkboardTeacher></FaChalkboardTeacher> Make
                         instructor
                       </button>
                       <button
                         className="btn btn-primary btn-sm"
-                        onClick={()=> handleMakeAdmin(user)}
+                        onClick={() => handleMakeAdmin(user)}
                         disabled={user.role === "admin" && true}
                       >
                         <FaUserShield></FaUserShield> make admin

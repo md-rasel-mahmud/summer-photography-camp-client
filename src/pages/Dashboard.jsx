@@ -8,14 +8,14 @@ import { SiGoogleclassroom } from "react-icons/si";
 import useSelectedClass from "../hooks/useSelectedClass";
 import useUserData from "../hooks/useUserData";
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [selectedClass] = useSelectedClass();
   const [userData] = useUserData();
 
   console.log(userData);
 
   return (
-    <div>
+    <>
       <Heading
         heading={
           userData?.role === "admin"
@@ -25,30 +25,30 @@ const Dashboard = () => {
             : "student dashboard"
         }
       ></Heading>
-      <div className="drawer lg:drawer-open">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center">
-          <label
-            htmlFor="my-drawer-2"
-            className="btn btn-secondary btn-block drawer-button lg:hidden"
-          >
-            <TiThMenu></TiThMenu> Open Dashboard Menu
-          </label>
+      <label
+        htmlFor="my-drawer-2"
+        className="btn btn-secondary btn-sm btn-block drawer-button lg:hidden"
+      >
+        <TiThMenu></TiThMenu> Open Dashboard Menu
+      </label>
+      <div className="drawer overflow-x-auto lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content  flex flex-col items-center justify-center">
           {/* Page content here */}
           <Outlet></Outlet>
         </div>
         <div className="drawer-side items-end z-50 lg:z-20">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-2/3 gap-1 lg:w-80 h-full bg-base-300 text-base-content">
+          <ul className="menu p-4 w-2/3 gap-1 lg:w-80 h-screen bg-base-300 text-base-content">
             {/* Sidebar content here */}
             <li>
               <div className="flex flex-col bg-base-100 py-5 justify-center">
                 <img
-                  className="h-28 mask mask-squircle shadow-lg"
+                  className="h-16 lg:h-28 mask mask-squircle shadow-lg"
                   src={user?.photoURL}
                   alt={user?.displayName}
                 />
-                <h3 className="flex justify-center text-xl font-bold uppercase">
+                <h3 className="flex justify-center text-md lg:text-lg font-bold uppercase">
                   {user?.displayName}
                 </h3>
               </div>
@@ -72,26 +72,20 @@ const Dashboard = () => {
                     className="btn block btn-sm !text-left"
                   >
                     My Enrolled Classes
-                  </Link>   
+                  </Link>
                 </li>
               </>
             )}
             {userData.role === "admin" && (
               <>
                 <li>
-                  <Link
-                    to={"/dashboard/manage-class"}
-                    className="btn btn-sm"
-                  >
+                  <Link to={"/dashboard/manage-class"} className="btn btn-sm">
                     <FaChalkboardTeacher></FaChalkboardTeacher>
                     Manage classes
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to={"/dashboard/all-users"}
-                    className="btn btn-sm"
-                    >
+                  <Link to={"/dashboard/all-users"} className="btn btn-sm">
                     <FaUsers></FaUsers>
                     Manage Users
                   </Link>
@@ -116,10 +110,18 @@ const Dashboard = () => {
                 )}
               </Link>
             </li>
+            <li>
+              <Link to={"/instructors"} className="btn btn-sm">
+                <FaChalkboardTeacher></FaChalkboardTeacher> instructors
+              </Link>
+            </li>
+            <li>
+              <button onClick={()=>logout()} className="btn btn-error btn-sm">logout</button>
+            </li>
           </ul>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
