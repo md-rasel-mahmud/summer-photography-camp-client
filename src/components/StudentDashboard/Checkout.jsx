@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 // eslint-disable-next-line react/prop-types
 const Checkout = ({ price }) => {
@@ -9,25 +10,15 @@ const Checkout = ({ price }) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const { user } = useContext(AuthContext);
+  const [axiosSecure] = useAxiosSecure();
 
-  console.log(price);
   useEffect(() => {
     if (price > 0) {
-      fetch(`${import.meta.env.VITE_api_link}/create-payment-intent`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ price }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setClientSecret(data);
-          console.log(data);
-        });
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+        setClientSecret(res.data.clientSecret);
+      });
     }
-  }, [price]);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,6 +61,7 @@ const Checkout = ({ price }) => {
 
   return (
     <div className="bg-base-200 p-8 rounded-lg">
+      <h3 className="my-3 text-secondary text-xl font-semibold">Total Price: ${price}</h3>
       <form onSubmit={handleSubmit}>
         <CardElement
           className="border border-gray-300 dark:border-gray-600 p-5 rounded-lg"

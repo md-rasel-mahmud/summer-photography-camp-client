@@ -25,9 +25,8 @@ const ClassCard = ({ classesCard }) => {
           email: user?.email,
         }),
       })
-        .then((res) => res.json()) // convert response to json and return it.)
+        .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.insertedId) {
             refetch();
             Swal.fire({

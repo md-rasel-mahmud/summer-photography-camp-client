@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import firebaseApp from "../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -52,15 +53,14 @@ const AuthProvider = ({ children }) => {
       onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
 
-        // get and set jwt token
         if (currentUser) {
-          fetch(`${import.meta.env.VITE_api_link}/jwt`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: currentUser?.email }),
+          axios
+          .post(`${import.meta.env.VITE_api_link}/jwt`, {
+            email: currentUser?.email,
           })
-            .then((res) => res.json())
-            .then((data) => localStorage.setItem("token", data.token));
+          .then((res) => {
+            localStorage.setItem("token", res.data.token);
+          });
         } else {
           localStorage.removeItem("token");
         }

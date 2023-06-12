@@ -65,7 +65,7 @@ const Dashboard = () => {
                 </li>
                 <li>
                   <Link
-                    to={"/dashboard/student/my-enrolled-classes"}
+                    to={"/dashboard/student/enrolled-classes"}
                     className="btn block btn-sm !text-left"
                   >
                     My Enrolled Classes

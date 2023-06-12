@@ -12,11 +12,9 @@ const PopularInstructors = () => {
         const sortClass = data.sort(
           (a, b) => b.availableSeats - a.availableSeats
         );
-        console.log(sortClass);
         setPopularInstructors(sortClass);
       });
   }, []);
-  console.log(popularInstructors);
   return (
     <>
       <div className="divider"></div>

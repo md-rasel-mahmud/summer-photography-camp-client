@@ -36,23 +36,10 @@ const MyClassesStudent = () => {
       {!userData.role ? (
         <>
           {selectedClass.length > 0 ? (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto bg-base-200 rounded-lg">
               <h2 className="text-2xl font font-semibold text-center underline">
                 My Classes
               </h2>
-              <div className="flex justify-between bg-base-200 p-4 rounded-lg mt-2">
-                <p>Selected classes: {selectedClass.length}</p>
-                <p>
-                  Total Price:{" "}
-                  {selectedClass.reduce((sum, item) => {
-                    const price = parseFloat(item.price);
-                    return sum + price;
-                  }, 0)}
-                </p>
-                <Link to={'/dashboard/student/checkout'} className="btn btn-primary btn-sm">
-                  Pay
-                </Link>
-              </div>
               <table className="table">
                 {/* head */}
                 <thead>
@@ -93,18 +80,39 @@ const MyClassesStudent = () => {
                         </div>
                       </td>
                       <th>
-
-                          <button
-                            onClick={() => handleDelete(myClass._id)}
-                            className="btn btn-error btn-sm btn-circle"
-                          >
-                            X
-                          </button>
-                        
+                        <button
+                          onClick={() => handleDelete(myClass._id)}
+                          className="btn btn-error btn-sm btn-circle"
+                        >
+                          X
+                        </button>
                       </th>
                     </tr>
                   ))}
                 </tbody>
+                {/* foot */}
+                <tfoot className="bg-secondary/25 text-accent text-xl fixed bottom-0 w-[74%] backdrop-blur-md">
+                  <tr>
+                    <th>#</th>
+                    <th>Total Selected Class: {selectedClass.length}</th>
+                    <th className="text-right">
+                      Total Price:{" "}
+                      {selectedClass.reduce((sum, item) => {
+                        const price = parseFloat(item.price);
+                        return sum + price;
+                      }, 0)}
+                    </th>
+                    <th></th>
+                    <th className="text-left">
+                      <Link
+                        to={"/dashboard/student/checkout"}
+                        className="btn btn-primary btn-sm"
+                      >
+                        Pay all
+                      </Link>
+                    </th>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           ) : (
