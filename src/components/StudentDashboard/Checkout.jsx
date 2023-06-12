@@ -11,6 +11,7 @@ const Checkout = ({ price }) => {
   const [clientSecret, setClientSecret] = useState("");
   const { user } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
+  const [success, setSuccess] = useState('')
 
   useEffect(() => {
     if (price > 0) {
@@ -56,6 +57,9 @@ const Checkout = ({ price }) => {
     if (confirmError) {
       console.log(confirmError);
     }
+    if (paymentIntent.status === "succeeded") {
+     setSuccess(paymentIntent.id) 
+    }
     console.log(paymentIntent);
   };
 
@@ -80,7 +84,8 @@ const Checkout = ({ price }) => {
             },
           }}
         />
-        <p className="text-error">{cardError}</p>
+        {cardError && <p className="text-error">{cardError}</p>}
+        {success && <p className="text-success pt-2">Transaction success! Transaction id: {success}</p>}
         <button
           type="submit"
           className="btn btn-primary mt-5 btn-sm"
