@@ -179,12 +179,14 @@ const ManageClasses = () => {
                 <div className="flex gap-1 bg-base-300 p-2 rounded-lg">
                   <button
                     onClick={() => handleApprove(allClass)}
+                    disabled={allClass.status === 'approved' || allClass.status === 'denied' ? true : false}
                     className="btn btn-primary btn-xs"
                   >
                     Approve
                   </button>
                   <button
                     onClick={() => handleDeny(allClass)}
+                    disabled={allClass.status === 'approved' || allClass.status === 'denied' ? true : false}
                     className="btn btn-error btn-xs"
                   >
                     Deny

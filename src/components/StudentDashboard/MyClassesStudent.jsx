@@ -37,6 +37,20 @@ const MyClassesStudent = () => {
         <>
           {selectedClass.length > 0 ? (
             <div className="overflow-x-auto">
+              <h2 className="text-2xl font font-semibold text-center underline">
+                My Classes
+              </h2>
+              <div className="flex justify-between bg-base-200 p-4 rounded-lg mt-2">
+                <p>Selected classes: {selectedClass.length}</p>
+                <p>
+                  Total Price:{" "}
+                  {selectedClass.reduce((sum, item) => {
+                    const price = parseFloat(item.price);
+                    return sum + price;
+                  }, 0)}
+                </p>
+                <button className="btn btn-primary btn-sm">Pay</button>
+              </div>
               <table className="table">
                 {/* head */}
                 <thead>
@@ -84,9 +98,6 @@ const MyClassesStudent = () => {
                           >
                             X
                           </button>
-                          <button className="btn btn-primary btn-sm">
-                            Pay
-                          </button>
                         </div>
                       </th>
                     </tr>
@@ -107,17 +118,14 @@ const MyClassesStudent = () => {
             </div>
           )}
         </>
-      ) : 
-        userData.role === "admin" ? 
-          <Navigate to="/dashboard/admin/manage-users" replace={true}></Navigate>
-         :
-
-          <Navigate
-            to="/dashboard/instructor/my-classes"
-            replace={true}
-          ></Navigate>
-        
-      }
+      ) : userData.role === "admin" ? (
+        <Navigate to="/dashboard/admin/manage-users" replace={true}></Navigate>
+      ) : (
+        <Navigate
+          to="/dashboard/instructor/my-classes"
+          replace={true}
+        ></Navigate>
+      )}
     </>
   );
 };

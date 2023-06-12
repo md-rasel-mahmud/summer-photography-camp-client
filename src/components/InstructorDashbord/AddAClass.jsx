@@ -1,32 +1,37 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const AddAClass = () => {
   const { user } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
+
   const onSubmit = (data) => {
-    const classData = {...data, status: 'pending', instructorImg: user?.photoURL} 
+    const classData = {
+      ...data,
+      status: "pending",
+      instructorImg: user?.photoURL,
+      enrolledStudents: 0
+    };
     // fetch data to server /class post method
     fetch(`${import.meta.env.VITE_api_link}/classes`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(classData),
     })
-    .then(res=> res.json())
-    .then(data => {
-    if (data.insertedId) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your Class Added Successful.',
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your Class Added Successful.",
             showConfirmButton: false,
-            timer: 1500
-          })
-    }
-    })
-    // console.log(classData);
+            timer: 1500,
+          });
+        }
+      });
   };
   return (
     <div>
