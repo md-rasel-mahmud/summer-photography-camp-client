@@ -49,7 +49,9 @@ const MyClassesStudent = () => {
                     return sum + price;
                   }, 0)}
                 </p>
-                <button className="btn btn-primary btn-sm">Pay</button>
+                <Link to={'/dashboard/student/checkout'} className="btn btn-primary btn-sm">
+                  Pay
+                </Link>
               </div>
               <table className="table">
                 {/* head */}
@@ -91,14 +93,14 @@ const MyClassesStudent = () => {
                         </div>
                       </td>
                       <th>
-                        <div className="flex items-center gap-2 bg-base-300 p-2 rounded-lg">
+
                           <button
                             onClick={() => handleDelete(myClass._id)}
-                            className="btn btn-error btn-sm"
+                            className="btn btn-error btn-sm btn-circle"
                           >
                             X
                           </button>
-                        </div>
+                        
                       </th>
                     </tr>
                   ))}

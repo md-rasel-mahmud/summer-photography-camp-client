@@ -32,11 +32,11 @@ const AuthProvider = ({ children }) => {
   };
 
   //login with google
-  const googleProvider = new GoogleAuthProvider()
+  const googleProvider = new GoogleAuthProvider();
 
   const loginWithGooglePopup = () => {
-    return signInWithPopup(auth,googleProvider);
-  } 
+    return signInWithPopup(auth, googleProvider);
+  };
 
   // update profile
   const updateUserInfo = (name, imgLink) => {
@@ -51,6 +51,19 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = () => {
       onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
+
+        // get and set jwt token
+        if (currentUser) {
+          fetch(`${import.meta.env.VITE_api_link}/jwt`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: currentUser?.email }),
+          })
+            .then((res) => res.json())
+            .then((data) => localStorage.setItem("token", data.token));
+        } else {
+          localStorage.removeItem("token");
+        }
 
         setLoading(false);
         console.log(currentUser);

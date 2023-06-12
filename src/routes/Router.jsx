@@ -13,6 +13,7 @@ import ManageClasses from "../components/AdminDashboard/ManageClasses";
 import ManageUsers from "../components/AdminDashboard/ManageUsers";
 import MyClassesInstructor from "../components/InstructorDashbord/MyClassesInstructor";
 import AddAClass from "../components/InstructorDashbord/AddAClass";
+import Payment from "../components/StudentDashboard/Payment";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/instructor/add-class",
         element: <AddAClass></AddAClass>,
+      },
+      {
+        path: "/dashboard/student/checkout",
+        element: <Payment></Payment>,
       },
     ],
   },

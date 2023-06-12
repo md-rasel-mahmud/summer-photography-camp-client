@@ -30,7 +30,7 @@ const Dashboard = () => {
       </label>
       <div className="drawer overflow-x-auto lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content  flex flex-col items-center justify-center">
+        <div className="drawer-content  flex flex-col m-4">
           {/* Page content here */}
           <Outlet></Outlet>
         </div>
