@@ -20,7 +20,7 @@ const PopularInstructors = () => {
       <div className="divider"></div>
       <Heading heading={"Popular Instructors"}></Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-screen-xl mx-auto my-8">
-        <InstructorCard instructorsCard={popularInstructors.slice(0, 6)}></InstructorCard>
+        <InstructorCard instructorsCard={popularInstructors.filter(approved => approved.status === 'approved').slice(0, 6)}></InstructorCard>
       </div>
       <div className="divider"></div>
     </>

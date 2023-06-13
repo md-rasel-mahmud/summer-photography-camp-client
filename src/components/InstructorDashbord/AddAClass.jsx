@@ -14,6 +14,7 @@ const AddAClass = () => {
       instructorImg: user?.photoURL,
       enrolledStudents: 0
     };
+    console.log(classData);
     // fetch data to server /class post method
     fetch(`${import.meta.env.VITE_api_link}/classes`, {
       method: "POST",
@@ -97,8 +98,7 @@ const AddAClass = () => {
                 className="input input-bordered"
                 {...register(
                   "availableSeats",
-                  { required: true },
-                  { minLength: 6 }
+                  { required: true , valueAsNumber: true },
                 )}
               />
             </div>
@@ -110,7 +110,7 @@ const AddAClass = () => {
                 type="text"
                 placeholder="Price"
                 className="input input-bordered"
-                {...register("price", { required: true })}
+                {...register("price", { required: true , valueAsNumber: true} )}
               />
             </div>
           </div>

@@ -28,7 +28,7 @@ const Instructors = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              {instructors.map((instructor, index) => (
+              {instructors.filter(approved => approved.status === 'approved').map((instructor, index) => (
                 <tr
                   className={
                     instructor.availableSeats === 0

@@ -8,7 +8,7 @@ const Payment = () => {
 
   return (
     <div>
-      <h2 className="text-3xl text-center mb-5 underline">Payment</h2>
+      <h2 className="text-3xl text-center mb-5 underline">Pay Class</h2>
       <Elements stripe={stripePromise}>
         <Checkout></Checkout>
       </Elements>

@@ -28,7 +28,14 @@ const InstructorCard = ({ instructorsCard }) => {
             </h2>
             <p className="flex items-center gap-1 break-all">
               <FaChalkboardTeacher></FaChalkboardTeacher>
-              <b>Class: {card.name}</b> 
+              <b>Class: {card.name}</b>
+            </p>
+            <p>
+              <b>Available Seats: </b> {card.availableSeats}
+            </p>
+            <p>
+              <b>Enrolled Students: </b>{" "}
+              {!card?.enrolledStudents ? 0 : card?.enrolledStudents}
             </p>
             <p className="flex items-center gap-1">
               <FaEnvelope></FaEnvelope> {card.instructorEmail}

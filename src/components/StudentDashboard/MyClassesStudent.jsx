@@ -95,29 +95,6 @@ const MyClassesStudent = () => {
                     </tr>
                   ))}
                 </tbody>
-                {/* foot */}
-                {/* <tfoot className="bg-secondary/25 text-accent text-xl fixed bottom-0 w-[74%] backdrop-blur-md">
-                  <tr>
-                    <th>#</th>
-                    <th>Total Selected Class: {selectedClass.length}</th>
-                    <th className="text-right">
-                      Total Price:{" "}
-                      {selectedClass.reduce((sum, item) => {
-                        const price = parseFloat(item.price);
-                        return sum + price;
-                      }, 0)}
-                    </th>
-                    <th></th>
-                    <th className="text-left">
-                      <Link
-                        to={"/dashboard/student/checkout"}
-                        className="btn btn-primary btn-sm"
-                      >
-                        Pay all
-                      </Link>
-                    </th>
-                  </tr>
-                </tfoot> */}
               </table>
             </div>
           ) : (

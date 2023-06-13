@@ -72,6 +72,10 @@ const ClassCard = ({ classesCard }) => {
             <p>
               <b>Available Seats: </b> {card.availableSeats}
             </p>
+            <p>
+              <b>Enrolled Students: </b>{" "}
+              {!card?.enrolledStudents ? 0 : card?.enrolledStudents}
+            </p>
             <div className="card-actions">
               <button
                 onClick={() => handleSelectedClass(card)}
