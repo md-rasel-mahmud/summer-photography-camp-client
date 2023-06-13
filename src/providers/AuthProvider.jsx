@@ -36,6 +36,7 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
   const loginWithGooglePopup = () => {
+    setLoading(true)
     return signInWithPopup(auth, googleProvider);
   };
 
@@ -51,20 +52,21 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = () => {
       onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-
+        
         if (currentUser) {
           axios
           .post(`${import.meta.env.VITE_api_link}/jwt`, {
             email: currentUser?.email,
           })
           .then((res) => {
+            console.log(res.data.token);
             localStorage.setItem("token", res.data.token);
           });
         } else {
           localStorage.removeItem("token");
         }
-
+        setUser(currentUser);
+        
         setLoading(false);
         console.log(currentUser);
       });

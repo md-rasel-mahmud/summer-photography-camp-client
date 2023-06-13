@@ -3,11 +3,12 @@ import useSelectedClass from "../../hooks/useSelectedClass";
 import { Link, Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useUserData from "../../hooks/useUserData";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyClassesStudent = () => {
   const [selectedClass, refetch] = useSelectedClass();
   const [userData] = useUserData();
-  console.log(selectedClass);
+  const [axiosSecure] = useAxiosSecure();
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -20,14 +21,10 @@ const MyClassesStudent = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_api_link}/selected-classes?id=${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then(() => {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            refetch();
-          });
+        axiosSecure.delete(`/selected-classes?id=${id}`).then(() => {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          refetch();
+        });
       }
     });
   };

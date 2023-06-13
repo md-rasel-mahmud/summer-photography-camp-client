@@ -2,16 +2,18 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useSelectedClass from "../../hooks/useSelectedClass";
 
 // eslint-disable-next-line react/prop-types
-const Checkout = ({ price }) => {
+const Checkout = ({ price , selectedClass}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const { user } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
-  const [success, setSuccess] = useState('')
+  const [success, setSuccess] = useState("");
+  const [, refetch] = useSelectedClass();
 
   useEffect(() => {
     if (price > 0) {
@@ -58,14 +60,24 @@ const Checkout = ({ price }) => {
       console.log(confirmError);
     }
     if (paymentIntent.status === "succeeded") {
-     setSuccess(paymentIntent.id) 
+      axiosSecure
+        .delete(`/selected-classes?email=${user?.email}`)
+        .then((res) => console.log(res.data));
+      
+        axiosSecure.post('/enrolled-class', selectedClass).then(res => console.log(res.data))
+      refetch();
+
+      setSuccess(paymentIntent.id);
     }
     console.log(paymentIntent);
   };
+  console.log(selectedClass);
 
   return (
     <div className="bg-base-200 p-8 rounded-lg">
-      <h3 className="my-3 text-secondary text-xl font-semibold">Total Price: ${price}</h3>
+      <h3 className="my-3 text-secondary text-xl font-semibold">
+        Total Price: ${price}
+      </h3>
       <form onSubmit={handleSubmit}>
         <CardElement
           className="border border-gray-300 dark:border-gray-600 p-5 rounded-lg"
@@ -85,7 +97,11 @@ const Checkout = ({ price }) => {
           }}
         />
         {cardError && <p className="text-error">{cardError}</p>}
-        {success && <p className="text-success pt-2">Transaction success! Transaction id: {success}</p>}
+        {success && (
+          <p className="text-success pt-2">
+            Transaction success! Transaction id: {success}
+          </p>
+        )}
         <button
           type="submit"
           className="btn btn-primary mt-5 btn-sm"
