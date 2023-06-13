@@ -3,9 +3,10 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useSelectedClass from "../../hooks/useSelectedClass";
+import { useParams } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const Checkout = ({ price , selectedClass}) => {
+const Checkout = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
@@ -15,13 +16,19 @@ const Checkout = ({ price , selectedClass}) => {
   const [success, setSuccess] = useState("");
   const [, refetch] = useSelectedClass();
 
+  const [selectedClass] = useSelectedClass();
+  const {checkoutId} = useParams()
+
+  const paymentPrice = selectedClass.find(payItem => payItem._id === checkoutId)
+  const {price} = paymentPrice || {};
+
   useEffect(() => {
     if (price > 0) {
       axiosSecure.post("/create-payment-intent", { price }).then((res) => {
         setClientSecret(res.data.clientSecret);
       });
     }
-  }, []);
+  }, [price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,11 +67,11 @@ const Checkout = ({ price , selectedClass}) => {
       console.log(confirmError);
     }
     if (paymentIntent.status === "succeeded") {
-      axiosSecure
-        .delete(`/selected-classes?email=${user?.email}`)
-        .then((res) => console.log(res.data));
+      // axiosSecure
+      //   .delete(`/selected-classes?email=${user?.email}`)
+      //   .then((res) => console.log(res.data));
       
-        axiosSecure.post('/enrolled-class', selectedClass).then(res => console.log(res.data))
+      //   axiosSecure.post('/enrolled-class', selectedClass).then(res => console.log(res.data))
       refetch();
 
       setSuccess(paymentIntent.id);
@@ -76,7 +83,7 @@ const Checkout = ({ price , selectedClass}) => {
   return (
     <div className="bg-base-200 p-8 rounded-lg">
       <h3 className="my-3 text-secondary text-xl font-semibold">
-        Total Price: ${price}
+        Total price: ${price}
       </h3>
       <form onSubmit={handleSubmit}>
         <CardElement

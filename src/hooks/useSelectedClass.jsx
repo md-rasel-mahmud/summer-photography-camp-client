@@ -5,17 +5,14 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useSelectedClass = () => {
   const { user, loading } = useContext(AuthContext);
-  // const [axiosSecure] = useAxiosSecure()
+  const [axiosSecure] = useAxiosSecure()
 
   const { refetch, data: selectedClass = [] } = useQuery({
     enabled: !loading && !!user?.email,
     queryKey: ["selected-classes", user?.email],
     queryFn: async () => {
-      const res = await fetch(
-        `${import.meta.env.VITE_api_link}/selected-classes?email=${user?.email}`
-      );
-      const data = await res.json();  
-      return data;
+      const res = await axiosSecure.get(`/selected-classes?email=${user?.email}`)
+      return res.data;
     },
   });
   return [selectedClass, refetch];

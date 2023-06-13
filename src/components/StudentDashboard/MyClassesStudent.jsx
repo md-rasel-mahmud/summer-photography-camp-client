@@ -77,18 +77,26 @@ const MyClassesStudent = () => {
                         </div>
                       </td>
                       <th>
-                        <button
-                          onClick={() => handleDelete(myClass._id)}
-                          className="btn btn-error btn-sm btn-circle"
-                        >
-                          X
-                        </button>
+                        <div className="flex gap-2 rounded-lg w-fit bg-base-300 p-3">
+                          <button
+                            onClick={() => handleDelete(myClass._id)}
+                            className="btn btn-error btn-sm btn-circle"
+                          >
+                            X
+                          </button>
+                          <Link
+                            to={`/dashboard/student/checkout/${myClass._id}`}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Pay
+                          </Link>
+                        </div>
                       </th>
                     </tr>
                   ))}
                 </tbody>
                 {/* foot */}
-                <tfoot className="bg-secondary/25 text-accent text-xl fixed bottom-0 w-[74%] backdrop-blur-md">
+                {/* <tfoot className="bg-secondary/25 text-accent text-xl fixed bottom-0 w-[74%] backdrop-blur-md">
                   <tr>
                     <th>#</th>
                     <th>Total Selected Class: {selectedClass.length}</th>
@@ -109,7 +117,7 @@ const MyClassesStudent = () => {
                       </Link>
                     </th>
                   </tr>
-                </tfoot>
+                </tfoot> */}
               </table>
             </div>
           ) : (

@@ -68,14 +68,14 @@ const Navbar = ({ setTheme, theme }) => {
         </div>
         {/* TODO: added toggle to change night mode dark mode */}
         <div className="navbar-end">
-          <div className="bg-base-300 flex gap-1 items-center rounded-full">
-            <label className="pl-4 swap swap-rotate">
+          <div className="bg-base-300 flex gap-1 p-1 items-center rounded-full">
+            <label className="pl-1 swap swap-rotate">
               {/* this hidden checkbox controls the state */}
-              <input className="tooltip tooltip-left" data-tip={theme ? 'Click to switch Dark Theme' : 'Click to switch Light Theme'} onClick={() => setTheme(!theme)} type="checkbox" />
+              <input className="tooltip tooltip-left" data-tip={theme ? 'Click to switch Dark Theme' : 'Click to switch Light Theme'} onChange={() => setTheme(!theme)} type="checkbox" />
 
               {/* sun icon */}
               <svg
-                className="swap-on fill-current w-10 h-10"
+                className="swap-on fill-current w-9 h-9"
                 
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -85,7 +85,7 @@ const Navbar = ({ setTheme, theme }) => {
 
               {/* moon icon */}
               <svg
-                className="swap-off fill-current w-10 h-10"
+                className="swap-off fill-current w-9 h-9"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >

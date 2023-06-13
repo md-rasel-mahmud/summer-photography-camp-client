@@ -2,8 +2,10 @@
 import Lottie from "lottie-react";
 import faq from "../../assets/faq.json";
 import Heading from "../Heading";
+import { useState } from "react";
 
 const Faq = () => {
+  const [isChecked, setIsChecked] = useState(false)
   return (
     <div className="min-h-screen">
       <Heading heading='FAQ'></Heading>
@@ -11,7 +13,7 @@ const Faq = () => {
         <div className=" my-5 w-full lg:w-96"><Lottie animationData={faq}></Lottie></div>
         <div className="lg:w-1/2 my-5">
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="my-accordion-2" checked="checked" />
+            <input type="radio" className="cursor-pointer" name="my-accordion-2" onChange={()=> setIsChecked(!isChecked)} checked={isChecked ? 'checked' : ''} />
             <div className="collapse-title text-xl font-medium">
               Q1: What is a summer photography camp?
             </div>
@@ -27,7 +29,7 @@ const Faq = () => {
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="my-accordion-2" />
+            <input type="radio" className="cursor-pointer" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               Q2: What age group is the summer photography camp suitable for?
             </div>
@@ -42,7 +44,7 @@ const Faq = () => {
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="my-accordion-2" />
+            <input type="radio" className="cursor-pointer" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               Q3: What will participants learn at a summer photography camp?
             </div>
@@ -58,7 +60,7 @@ const Faq = () => {
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="my-accordion-2" />
+            <input type="radio" className="cursor-pointer" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               Q4: Do participants need to have prior photography experience to
               join the camp?
@@ -74,7 +76,7 @@ const Faq = () => {
             </div>
           </div>
           <div className="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="my-accordion-2" />
+            <input type="radio" className="cursor-pointer" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               Q5: What equipment do participants need to bring to the camp?
             </div>
