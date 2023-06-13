@@ -23,16 +23,15 @@ const InstructorCard = ({ instructorsCard }) => {
               card.availableSeats === 0 ? "bg-red-500/70" : "bg-base-200"
             } w-full rounded-lg`}
           >
-            <h2 className="card-title ">
-              Instructor Name:{" "}
-              <span className="text-primary">{card.instructorName}</span>
+            <h2 className="card-title text-primary break-all">
+              Instructor Name: {card.instructorName}
             </h2>
-            <p className="flex items-center gap-1">
-              <FaChalkboardTeacher></FaChalkboardTeacher> 
-              <b>Class:</b> {card.name}
+            <p className="flex items-center gap-1 break-all">
+              <FaChalkboardTeacher></FaChalkboardTeacher>
+              <b>Class: {card.name}</b> 
             </p>
             <p className="flex items-center gap-1">
-              <FaEnvelope></FaEnvelope>  { card.instructorEmail}
+              <FaEnvelope></FaEnvelope> {card.instructorEmail}
             </p>
           </div>
         </div>

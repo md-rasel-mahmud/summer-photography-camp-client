@@ -1,13 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import Lottie from "lottie-react";
 import faq from "../../assets/faq.json";
+import Heading from "../Heading";
 
 const Faq = () => {
   return (
     <div className="min-h-screen">
-      <h2 className="text-3xl text-center font-bold text-accent">FAQ</h2>
-      <div className="flex flex-col  lg:flex-row justify-around items-center">
-        <div className="w-96"><Lottie animationData={faq}></Lottie></div>
+      <Heading heading='FAQ'></Heading>
+      <div className="flex flex-col lg:flex-row justify-around items-center">
+        <div className=" my-5 w-full lg:w-96"><Lottie animationData={faq}></Lottie></div>
         <div className="lg:w-1/2 my-5">
           <div className="collapse collapse-arrow bg-base-200">
             <input type="radio" name="my-accordion-2" checked="checked" />
