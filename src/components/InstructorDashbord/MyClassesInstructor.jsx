@@ -3,15 +3,17 @@ import { Link, Navigate } from "react-router-dom";
 import useUserData from "../../hooks/useUserData";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
-import { FaEnvelope } from "react-icons/fa";
+import { FaCheckCircle, FaEnvelope, FaRegTimesCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
+import { AiOutlineWarning } from "react-icons/ai";
 
 const MyClassesInstructor = () => {
   const { user, loading } = useContext(AuthContext);
   const [userData] = useUserData();
   const { register, handleSubmit } = useForm();
-  const [updateId, setUpdateId] = useState()
+  const [updateInfo, setUpdateInfo] = useState("");
+  const [processing, setProcessing] = useState(false);
 
   const { refetch, data: myClass = [] } = useQuery({
     enabled: !loading && !!user?.email,
@@ -25,8 +27,9 @@ const MyClassesInstructor = () => {
     },
   });
   const onSubmit = (data) => {
+    setProcessing(true);
 
-    fetch(`${import.meta.env.VITE_api_link}/classes/${updateId}`, {
+    fetch(`${import.meta.env.VITE_api_link}/classes/${updateInfo._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -35,10 +38,16 @@ const MyClassesInstructor = () => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          Swal.fire("Updated Class!", "Your class has been updated.", "success");
+          Swal.fire(
+            "Updated Class!",
+            "Your class has been updated.",
+            "success"
+          );
           refetch();
         }
       });
+
+    setProcessing(false);
     refetch();
   };
 
@@ -52,7 +61,7 @@ const MyClassesInstructor = () => {
 
   return (
     <div>
-      {userData.role === "instructor" || userData.role === "admin" ? (
+      {userData.role === "instructor" ? (
         <>
           {myClass.length > 0 ? (
             <div className="overflow-x-auto">
@@ -67,7 +76,7 @@ const MyClassesInstructor = () => {
                     <th>Class Name</th>
                     <th>Price</th>
                     <th>Instructor Email</th>
-                    <th>Enrolled Students</th>
+                    <th>Enrolled</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -104,25 +113,38 @@ const MyClassesInstructor = () => {
                       {/* TODO: add icon to buttons */}
                       <td className="text-center">
                         {myClass.status == "approved" ? (
-                          <button className="btn btn-primary btn-xs">
-                            {myClass.status}
-                          </button>
+                          <div className="flex gap-1 items-center text-warning bg-base-200 p-2 rounded-lg text-lg">
+                            <FaCheckCircle></FaCheckCircle>
+                            <button className="btn btn-warning btn-xs">
+                              {myClass.status}
+                            </button>
+                          </div>
                         ) : myClass.status == "denied" ? (
-                          <button className="btn btn-error btn-xs">
-                            {myClass.status}
-                          </button>
+                          <div className="flex gap-1 items-center text-warning bg-base-200 p-2 rounded-lg text-lg">
+                            <FaRegTimesCircle></FaRegTimesCircle>
+                            <button className="btn btn-warning btn-xs">
+                              {myClass.status}
+                            </button>
+                          </div>
                         ) : (
-                          <button className="btn btn-warning btn-xs">
-                            Pending
-                          </button>
+                          <div className="flex gap-1 items-center text-warning bg-base-200 p-2 rounded-lg text-lg">
+                            <AiOutlineWarning></AiOutlineWarning>
+                            <button className="btn btn-warning btn-xs">
+                              Pending
+                            </button>
+                          </div>
                         )}
                       </td>
                       <th>
-                        <div className="flex items-center gap-2 bg-base-300 p-2 rounded-lg">
+                        <div className="flex items-center gap-2 w-max bg-base-300 p-2 rounded-lg">
                           <label
                             htmlFor="my_modal_6"
-                            onClick={() => setUpdateId(myClass._id)}
-                            className="btn btn-accent btn-sm"
+                            onClick={() => setUpdateInfo(myClass)}
+                            className={`btn btn-accent btn-sm ${
+                              processing
+                                ? "disabled loading loading-dots loading-sm"
+                                : ""
+                            }`}
                           >
                             Update
                           </label>
@@ -145,13 +167,12 @@ const MyClassesInstructor = () => {
               <input type="checkbox" id="my_modal_6" className="modal-toggle" />
               <div className="modal">
                 <div className="modal-box">
-                  <h3 className="font-bold text-lg">Hello!</h3>
                   <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="card-body "
                   >
                     <h2 className="text-2xl text-secondary text-center font-bold uppercase bg-base-200 py-3 rounded-lg">
-                      Add A Class
+                      Update A Class
                     </h2>
                     <div className="grid grid-cons-1 md:grid-cols-2 gap-3">
                       <div className="form-control">
@@ -162,6 +183,7 @@ const MyClassesInstructor = () => {
                           type="text"
                           placeholder="Class Name"
                           className="input input-bordered"
+                          defaultValue={updateInfo.name}
                           {...register("name", { required: true })}
                         />
                       </div>
@@ -173,7 +195,8 @@ const MyClassesInstructor = () => {
                           type="url"
                           placeholder="Photo url"
                           className="input input-bordered"
-                          {...register("classImg")}
+                          defaultValue={updateInfo.classImg}
+                          {...register("classImg", { required: true })}
                         />
                       </div>
                       <div className="form-control">
@@ -184,11 +207,8 @@ const MyClassesInstructor = () => {
                           type="number"
                           placeholder="Available seats"
                           className="input input-bordered"
-                          {...register(
-                            "availableSeats",
-                            { required: true },
-                            { minLength: 6 }
-                          )}
+                          defaultValue={updateInfo.availableSeats}
+                          {...register("availableSeats", { required: true })}
                         />
                       </div>
                       <div className="form-control">
@@ -199,13 +219,14 @@ const MyClassesInstructor = () => {
                           type="text"
                           placeholder="Price"
                           className="input input-bordered"
+                          defaultValue={updateInfo.price}
                           {...register("price", { required: true })}
                         />
                       </div>
                       <div className="form-control">
                         <input
-                          type="text"
-                          value={myClass._id}
+                          type="hidden"
+                          value={updateInfo._id}
                           {...register("id")}
                         />
                       </div>
@@ -239,7 +260,7 @@ const MyClassesInstructor = () => {
           )}
         </>
       ) : (
-        <Navigate to="/dashboard" replace={true}></Navigate>
+        <Navigate to="/dashboard/user-role" replace={true}></Navigate>
       )}
     </div>
   );

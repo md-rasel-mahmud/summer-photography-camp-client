@@ -4,7 +4,7 @@ import {
   FaUser,
   FaUserShield,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useUserData from "../../hooks/useUserData";
 import useAllUserData from "../../hooks/useAllUserData";
@@ -12,7 +12,6 @@ import useAllUserData from "../../hooks/useAllUserData";
 const ManageUsers = () => {
   const [userData] = useUserData();
   const [allUserData, refetch] = useAllUserData();
-  console.log(allUserData);
 
   const handleMakeInstructor = (instructor) => {
     Swal.fire({
@@ -32,7 +31,12 @@ const ManageUsers = () => {
         })
           .then((res) => res.json())
           .then(() => {
-            Swal.fire("Welcome!",`${instructor.name = instructor.name.toUpperCase()} is Instructor now`, "success");
+            Swal.fire(
+              "Welcome!",
+              `${(instructor.name =
+                instructor.name.toUpperCase())} is Instructor now`,
+              "success"
+            );
             refetch();
           });
       }
@@ -57,7 +61,11 @@ const ManageUsers = () => {
         })
           .then((res) => res.json())
           .then(() => {
-            Swal.fire("Welcome!",`"${admin.name = admin.name.toUpperCase()}" is Admin now`, "success");
+            Swal.fire(
+              "Welcome!",
+              `"${(admin.name = admin.name.toUpperCase())}" is Admin now`,
+              "success"
+            );
             refetch();
           });
       }
@@ -65,92 +73,101 @@ const ManageUsers = () => {
   };
   return (
     <>
-      {userData.role === "admin" && allUserData.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="table">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Student Name</th>
-                <th>Student Email</th>
-                <th>Role</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              {allUserData.map((user, index) => (
-                <tr key={user._id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={user.photoUrl}
-                            alt={`${user.className} image`}
-                          />
+      {userData.role === "admin" ? (
+        <>
+          {allUserData.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="table">
+                {/* head */}
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* row 1 */}
+                  {allUserData.map((user, index) => (
+                    <tr key={user._id}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <div className="flex items-center space-x-3">
+                          <div className="avatar">
+                            <div className="mask mask-squircle w-12 h-12">
+                              <img
+                                src={user.photoUrl}
+                                alt={`${user.className} image`}
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="font-bold">{user.name}</div>
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">{user.name}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="flex items-center gap-1">
-                      <FaEnvelope></FaEnvelope> {user.email}
-                    </div>
-                  </td>
-                  <td>
-                    {user.role ? (
-                      <div className="flex w-max btn btn-xs pointer-events-none btn-secondary items-center gap-1 uppercase">
-                        <FaUserShield></FaUserShield>
-                        {user.role}
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-1 uppercase">
-                        <FaUser></FaUser> student
-                      </div>
-                    )}
-                  </td>
-                  <td>
-                    <div className="flex items-center w-max gap-2 bg-base-300 p-2 rounded-lg">
-                      <button
-                        onClick={() => handleMakeInstructor(user)}
-                        className="btn btn-accent btn-sm"
-                        disabled={
-                          user.role === "instructor" ||
-                          (user.role === "admin" && true)
-                        }
-                      >
-                        <FaChalkboardTeacher></FaChalkboardTeacher> Make
-                        instructor
-                      </button>
-                      <button
-                        className="btn btn-primary btn-sm"
-                        onClick={() => handleMakeAdmin(user)}
-                        disabled={user.role === "admin" && true}
-                      >
-                        <FaUserShield></FaUserShield> make admin
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                      </td>
+                      <td>
+                        <div className="flex items-center gap-1">
+                          <FaEnvelope></FaEnvelope> {user.email}
+                        </div>
+                      </td>
+                      <td>
+                        {user.role ? (
+                          <div className="flex w-max btn btn-xs pointer-events-none btn-secondary items-center gap-1 uppercase">
+                            <FaUserShield></FaUserShield>
+                            {user.role}
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-1 uppercase">
+                            <FaUser></FaUser> student
+                          </div>
+                        )}
+                      </td>
+                      <td>
+                        <div className="flex items-center w-max gap-2 bg-base-300 p-2 rounded-lg">
+                          <button
+                            onClick={() => handleMakeInstructor(user)}
+                            className="btn btn-accent btn-sm"
+                            disabled={
+                              user.role === "instructor" ||
+                              (user.role === "admin" && true)
+                            }
+                          >
+                            <FaChalkboardTeacher></FaChalkboardTeacher> Make
+                            instructor
+                          </button>
+                          <button
+                            className="btn btn-primary btn-sm"
+                            onClick={() => handleMakeAdmin(user)}
+                            disabled={user.role === "admin" && true}
+                          >
+                            <FaUserShield></FaUserShield> make admin
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div>
+              <h1 className="text-center text-3xl text-error">
+                User not found!
+              </h1>
+              <div className="text-center my-3">
+                <Link className="btn btn-sm btn-primary" to={"/classes"}>
+                  Go to Classes
+                </Link>
+              </div>
+            </div>
+          )}
+        </>
       ) : (
-        <div>
-          <h1 className="text-center text-3xl text-error">User not found!</h1>
-          <div className="text-center my-3">
-            <Link className="btn btn-sm btn-primary" to={"/classes"}>
-              Go to Classes
-            </Link>
-          </div>
-        </div>
+        <Navigate to={"/dashboard/user-role"} replace={true}></Navigate>
       )}
     </>
   );

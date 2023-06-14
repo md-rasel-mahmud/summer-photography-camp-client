@@ -16,8 +16,7 @@ const SocialLogin = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user?.email, name: user?.displayName, photoUrl: user?.photoURL}), 
       })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+
 
       navigate("/");
     }); 

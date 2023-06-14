@@ -2,13 +2,13 @@ import { FaEnvelope } from "react-icons/fa";
 import useSelectedClass from "../../hooks/useSelectedClass";
 import { Link, Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import useUserData from "../../hooks/useUserData";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useUserData from "../../hooks/useUserData";
 
 const MyClassesStudent = () => {
   const [selectedClass, refetch] = useSelectedClass();
-  const [userData] = useUserData();
   const [axiosSecure] = useAxiosSecure();
+  const [userData] = useUserData();
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -110,13 +110,8 @@ const MyClassesStudent = () => {
             </div>
           )}
         </>
-      ) : userData.role === "admin" ? (
-        <Navigate to="/dashboard/admin/manage-users" replace={true}></Navigate>
       ) : (
-        <Navigate
-          to="/dashboard/instructor/my-classes"
-          replace={true}
-        ></Navigate>
+        <Navigate to="/dashboard/user-role" replace={true}></Navigate>
       )}
     </>
   );

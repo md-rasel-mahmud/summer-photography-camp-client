@@ -21,9 +21,9 @@ const Navbar = ({ setTheme, theme }) => {
       <li>
         <Link to={"/classes"}>Classes</Link>
       </li>
-      <li>
-        <Link to={"/dashboard/student/my-classes"}>Dashboard</Link>
-      </li>
+      {user && <li>
+        <Link to={"/dashboard/user-role"}>Dashboard</Link>
+      </li>}
     </>
   );
 
@@ -154,7 +154,7 @@ const Navbar = ({ setTheme, theme }) => {
                   <div className="rounded-full">
                     {user?.photoURL ? (
                       <div className="w-10">
-                        <img src={user?.photoURL} />
+                        <img src={user?.photoURL} referrerPolicy="no-referrer"/>
                       </div>
                     ) : (
                       <div className="text-2xl">

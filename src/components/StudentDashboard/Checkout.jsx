@@ -35,6 +35,7 @@ const Checkout = () => {
       });
     }
   }, [price]);
+  console.log(paymentInfo);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -74,16 +75,22 @@ const Checkout = () => {
       console.log(confirmError);
     }
     if (paymentIntent.status === "succeeded") {
+      
+      // delete selected class 
       axiosSecure
-        .delete(`/selected-classes?id=${paymentInfo?._id}`)
+      .delete(`/selected-classes?id=${paymentInfo?._id}`)
+      .then((res) => console.log(res.data));
+      
+      // set transactionId to save database with transactionId
+      paymentInfo.transactionId = paymentIntent.id;
+      //save payment info database
+      axiosSecure
+        .post("/enrolled-class",  paymentInfo )
         .then((res) => console.log(res.data));
 
-      axiosSecure
-        .post("/enrolled-class", { selectedClass })
-        .then((res) => console.log(res.data));
-      
+      // update enrolled student and available seats 
         axiosSecure.patch(`/classes/${paymentInfo.classId}`).then(res=> console.log(res.data))
-      refetch();
+      refetch(); 
 
       setProcessOrder(false);
 
@@ -95,7 +102,7 @@ const Checkout = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/dashboard/student/my-classes");
+      navigate("/dashboard/student/enrolled-classes");
     }
     console.log(paymentIntent);
   };

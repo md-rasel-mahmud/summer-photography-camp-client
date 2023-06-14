@@ -59,6 +59,10 @@ const AuthProvider = ({ children }) => {
             email: currentUser?.email,
           })
           .then((res) => {
+            // console.log(res.data.token);
+            if (!res.data.token) {
+              logout()
+            }
             localStorage.setItem("token", res.data.token);
           });
         } else {

@@ -15,6 +15,8 @@ import MyClassesInstructor from "../components/InstructorDashbord/MyClassesInstr
 import AddAClass from "../components/InstructorDashbord/AddAClass";
 import Payment from "../components/StudentDashboard/Payment";
 import MyEnrolledClass from "../components/StudentDashboard/MyEnrolledClass";
+import PaymentHistory from "../components/StudentDashboard/PaymentHistory";
+import UserRole from "../layouts/UserRole";
 
 const router = createBrowserRouter([
   {
@@ -53,8 +55,8 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard/student/my-classes",
-        element: <MyClassesStudent></MyClassesStudent>,
+        path: "/dashboard/user-role",
+        element: <UserRole></UserRole>,
       },
       {
         path: "/dashboard/admin/manage-users",
@@ -73,12 +75,20 @@ const router = createBrowserRouter([
         element: <AddAClass></AddAClass>,
       },
       {
+        path: "/dashboard/student/my-classes",
+        element: <MyClassesStudent></MyClassesStudent>,
+      },
+      {
         path: "/dashboard/student/checkout/:checkoutId",
         element: <Payment></Payment>,
       },
       {
         path: "/dashboard/student/enrolled-classes",
         element: <MyEnrolledClass></MyEnrolledClass>,
+      },
+      {
+        path: "/dashboard/student/payment-history",
+        element: <PaymentHistory></PaymentHistory>,
       },
     ],
   },

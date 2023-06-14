@@ -32,6 +32,8 @@ This is Summer Photography Camp Course website. Below you will find information 
 - **Match-sorter**: Utility for fuzzy searching and sorting lists.
 - **React Icons**: Collection of popular icons as React components.
 - **Swiperjs**: Mobile touch slider library for creating slide-based interfaces.
+- **Framer-motion**: This is a react animation library. Made by Framer motion, the web builder for creative pros.
+
 
 ## Back-end Technologies Used
 

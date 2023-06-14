@@ -23,6 +23,7 @@ const Instructors = () => {
                 <th>Instructor Name</th>
                 <th>Class Name</th>
                 <th>Available Seat</th>
+                <th>Enrolled</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -60,6 +61,7 @@ const Instructors = () => {
                   </td>
                   <td>{instructor.name}</td>
                   <td>{instructor.availableSeats}</td>
+                  <td>{instructor.enrolledStudents}</td>
                   <th>{instructor.price}</th>
                 </tr>
               ))}

@@ -4,30 +4,47 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import useSelectedClass from "../../hooks/useSelectedClass";
 import useUserData from "../../hooks/useUserData";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 /* eslint-disable react/prop-types */
 const ClassCard = ({ classesCard }) => {
   const { user } = useContext(AuthContext);
   const [, refetch] = useSelectedClass();
   const [userData] = useUserData();
+  const [axiosSecure] = useAxiosSecure()
 
   const handleSelectedClass = (card) => {
     // fetch data from server: method post and the card data will be send
+    const saveSelectedClass = {
+      classId: card._id,
+      className: card.name,
+      price: card.price,
+      image: card.classImg,
+      email: user?.email,
+    }
     if (user && user.email) {
-      fetch(`${import.meta.env.VITE_api_link}/selected-classes`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          classId: card._id,
-          className: card.name,
-          price: card.price,
-          image: card.classImg,
-          email: user?.email,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
+      // fetch(`${import.meta.env.VITE_api_link}/selected-classes`, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(saveSelectedClass),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     if (data.insertedId) {
+      //       refetch();
+      //       Swal.fire({
+      //         position: "center",
+      //         icon: "success",
+      //         title: "Your Class has been added success.",
+      //         showConfirmButton: false,
+      //         timer: 1500,
+      //       });
+      //     }
+      //   });
+
+        axiosSecure.post('/selected-classes', saveSelectedClass).then(res => {
+        
+          if (res.data.insertedId) {
             refetch();
             Swal.fire({
               position: "center",
@@ -37,7 +54,7 @@ const ClassCard = ({ classesCard }) => {
               timer: 1500,
             });
           }
-        });
+        })
     }
   };
 

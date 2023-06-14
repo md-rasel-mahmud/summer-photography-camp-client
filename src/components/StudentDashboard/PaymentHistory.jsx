@@ -3,9 +3,10 @@ import useEnrolledClasses from "../../hooks/useEnrolledClasses";
 import useUserData from "../../hooks/useUserData";
 import { FaCheckCircle, FaEnvelope } from "react-icons/fa";
 
-const MyEnrolledClass = () => {
+const PaymentHistory = () => {
   const [enrolledClasses] = useEnrolledClasses();
   const [userData] = useUserData();
+
   return (
     <div>
       <h2 className="capitalize my-4 text-2xl text-center">
@@ -24,6 +25,8 @@ const MyEnrolledClass = () => {
                       <th>Class Name</th>
                       <th>Price</th>
                       <th>Student Email</th>
+                      <th>Transaction Id</th>
+                      <th>Payment Time</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -57,10 +60,21 @@ const MyEnrolledClass = () => {
                             <FaEnvelope></FaEnvelope> {enrolled.email}
                           </div>
                         </td>
+                        <td>
+                          {enrolled.transactionId}
+                        </td>
+                        <td>
+                          {enrolled.enrolledAt
+                            .split("T")
+                            .join(" ")
+                            .split(":")
+                            .slice(0, 2)
+                            .join(":")}
+                        </td>
                         <th>
                           <div className="flex gap-2 rounded-lg w-fit bg-base-300 p-3">
                             <button className="btn btn-success btn-sm pointer-events-none">
-                              Enrolled <FaCheckCircle></FaCheckCircle>
+                              Payed <FaCheckCircle></FaCheckCircle>
                             </button>
                           </div>
                         </th>
@@ -83,11 +97,14 @@ const MyEnrolledClass = () => {
             )}
           </>
         ) : (
-          <Navigate to="/dashboard/user-role" replace={true}></Navigate>
+          <Navigate
+            to="/dashboard/user-role"
+            replace={true}
+          ></Navigate>
         )}
       </>
     </div>
   );
 };
 
-export default MyEnrolledClass;
+export default PaymentHistory;

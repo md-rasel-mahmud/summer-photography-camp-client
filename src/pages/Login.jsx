@@ -34,8 +34,6 @@ const Login = () => {
           photoUrl: user?.photoURL,
         }),
       })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
       navigate("/");
       console.log(user);
     });
