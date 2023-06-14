@@ -11,6 +11,7 @@ import SocialLogin from "../components/SocialLogin";
 const Login = () => {
   const { loginWithEmailPass } = useContext(AuthContext);
   const [showHidePass, setShowHidePass] = useState(false);
+  const [processing, setProcessing] = useState(false);
 
   const {
     register,
@@ -22,6 +23,7 @@ const Login = () => {
   // handle submit form
   const onSubmit = (data) => {
     const { email, password } = data;
+    setProcessing(true);
 
     loginWithEmailPass(email, password).then((result) => {
       const user = result.user;
@@ -33,7 +35,8 @@ const Login = () => {
           name: user?.displayName,
           photoUrl: user?.photoURL,
         }),
-      })
+      });
+      setProcessing(false);
       navigate("/");
       console.log(user);
     });
@@ -98,8 +101,15 @@ const Login = () => {
               </label>
               {errors.exampleRequired && <span>This field is required</span>}
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-accent">
+                <button
+                  disabled={processing}
+                  type="submit"
+                  className="btn btn-accent"
+                >
                   Login
+                  {processing && (
+                    <span className="loading loading-dots loading-sm"></span>
+                  )}
                 </button>
               </div>
               <div className="divider">OR LOGIN WITH</div>

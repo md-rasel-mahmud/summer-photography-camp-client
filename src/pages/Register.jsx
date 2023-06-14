@@ -11,6 +11,7 @@ const Register = () => {
   const { registerWithEmailPass, updateUserInfo } = useContext(AuthContext);
   const [errors, setErrors] = useState("");
   const [showHidePass, setShowHidePass] = useState(false);
+  const [processing, setProcessing] = useState(false);
 
   const { register, handleSubmit } = useForm();
 
@@ -41,17 +42,19 @@ const Register = () => {
       return;
     }
     setErrors("");
+    setProcessing(true);
     registerWithEmailPass(email, password).then((result) => {
       const user = result.user;
       // fetch data to server post method send data user email password and user name and password is encrypted and send data to server to register user.
       fetch(`${import.meta.env.VITE_api_link}/user`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user?.email, name , photoUrl}), 
+        body: JSON.stringify({ email: user?.email, name, photoUrl }),
       })
-        .then((res) => res.json()) 
+        .then((res) => res.json())
         .then((data) => console.log(data));
       updateUserInfo(name, photoUrl);
+      setProcessing(false);
       navigate("/");
     });
   };
@@ -159,8 +162,15 @@ const Register = () => {
                 </Link>
               </label>
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-accent">
-                  Login
+                <button
+                  disabled={processing}
+                  type="submit"
+                  className="btn btn-accent"
+                >
+                  Register
+                  {processing && (
+                    <span className="loading loading-dots loading-sm"></span>
+                  )}
                 </button>
               </div>
               <div className="divider">OR REGISTER WITH</div>
