@@ -14,21 +14,9 @@ import photographySlider1 from "../../assets/photography-slider-1.json";
 import photographySlider2 from "../../assets/photography-slider-2.json";
 import photographySlider3 from "../../assets/photography-slider-3.json";
 
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
 
 const Banner = () => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-  });
 
-  useEffect(() => {
-    if (inView) {
-      controls.start({ opacity: 1, x: 100 });
-    }
-  }, [controls, inView]);
   return (
     <div>
       <Swiper
@@ -47,12 +35,8 @@ const Banner = () => {
       >
         <SwiperSlide>
           <div className="flex flex-col-reverse lg:flex-row justify-around items-center min-h-[85vh]">
+
             <div className="w-full lg:w-1/3 text-center p-3 lg:text-left">
-              <motion.div
-                ref={ref}
-                initial={{opacity: 0, x: 0,}}
-                animate={controls}
-              >
                 <h1 className="text-4xl font-bold text-primary mb-3">
                   Capture the Beauty of Summer: Join Our Photography Camp!
                 </h1>
@@ -63,7 +47,6 @@ const Banner = () => {
                   create lasting memories. Unleash your creativity and join us
                   for an unforgettable summer adventure!
                 </p>
-              </motion.div>
             </div>
             <div className="lg:w-1/3">
               <Lottie animationData={photographySlider1}></Lottie>
